@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="18.0sp" android:textStyle="normal" android:textColor="#ff947e00" android:id="@id/title" android:layout_width="0.0dip" android:layout_height="30.0dip" android:layout_margin="10.0dip" android:text="Sign Up" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+    </LinearLayout>
+    <View android:id="@id/titleDivider" android:background="#ff947e00" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/registrationName" android:layout_width="fill_parent" android:layout_height="50.0dip" android:layout_marginTop="10.0dip" android:hint="Name" android:ems="10" android:inputType="text" android:fontFamily="sans-serif-light">
+        <requestFocus />
+    </EditText>
+    <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/registrationEmail" android:layout_width="fill_parent" android:layout_height="50.0dip" android:hint="Email Address" android:ems="10" android:inputType="textEmailAddress" android:fontFamily="sans-serif-light" />
+    <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/registrationPhnNumber" android:layout_width="fill_parent" android:layout_height="50.0dip" android:hint="Mobile Number" android:ems="10" android:inputType="number" android:fontFamily="sans-serif-light" />
+    <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/registrationPassword" android:layout_width="fill_parent" android:layout_height="50.0dip" android:hint="Password" android:ems="10" android:inputType="textPassword" android:fontFamily="sans-serif-light" />
+    <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/registrationConfirmPassword" android:layout_width="fill_parent" android:layout_height="50.0dip" android:hint="Confirm Password" android:ems="10" android:inputType="textPassword" android:fontFamily="sans-serif-light" />
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="50.0dip">
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:textColor="#ff000000" android:id="@id/registerCancelButton" android:background="@drawable/my_button" android:layout_width="0.0dip" android:layout_height="50.0dip" android:layout_margin="1.0dip" android:text="Cancel" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:textColor="#ff000000" android:id="@id/registerSubmitBtn" android:background="@drawable/my_button" android:layout_width="0.0dip" android:layout_height="50.0dip" android:layout_margin="1.0dip" android:text="Submit" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+    </LinearLayout>
+    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ffad1400" android:gravity="center" android:id="@id/registrationResultText" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="40.0dip" android:text="TextView" android:fontFamily="sans-serif-light" />
+</LinearLayout>

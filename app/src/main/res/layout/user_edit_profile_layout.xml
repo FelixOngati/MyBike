@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/textView1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Full name" android:fontFamily="sans-serif-light" />
+    <EditText android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userChangeProfileNameEt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="Name" android:fontFamily="sans-serif-light">
+        <requestFocus />
+    </EditText>
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/textView2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Registered mobile" android:fontFamily="sans-serif-light" />
+    <EditText android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userChangeProfileNumberEt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fontFamily="sans-serif-light" />
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/textView3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Password" android:fontFamily="sans-serif-light" />
+    <EditText android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userChangeProfilePasswordEt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="Password" android:fontFamily="sans-serif-light" />
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:id="@id/userChangeProfileCancelBtn" android:background="@drawable/my_button" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_margin="1.0dip" android:text="Cancel" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:id="@id/userChangeProfileSaveBtn" android:background="@drawable/my_button" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_margin="1.0dip" android:text="Save" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:padding="10.0sp" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userRequestDetailsName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Name" android:fontFamily="sans-serif-light" />
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userRequestDetailsNumber" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Number" android:fontFamily="sans-serif-light" />
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userRequestDetailsPickupLocation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Pickup Location" android:fontFamily="sans-serif-light" />
+    <TextView android:textSize="18.0sp" android:textStyle="normal" android:id="@id/userRequestDetailsDropLocation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Drop Location" android:fontFamily="sans-serif-light" />
+    <Button android:textSize="16.0sp" android:id="@id/driverTrackBtn" android:background="@drawable/my_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Track Driver" android:fontFamily="sans-serif-light" />
+</LinearLayout>

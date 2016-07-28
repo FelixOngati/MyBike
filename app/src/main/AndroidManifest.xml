@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="xyz.fegati.mybike">
+    <permission android:name="xyz.fegati.mybike.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
+    <uses-permission android:name="xyz.fegati.mybike.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-feature android:glEsVersion="0x20000" android:required="true"/>
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="xyz.fegati.mybike.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="xyz.fegati.mybike.DriverPositionActivity"/>
+        <activity android:name="xyz.fegati.mybike.DriverActivity"/>
+        <activity android:name="xyz.fegati.mybike.RequestedUserActivity"/>
+        <activity android:name="xyz.fegati.mybike.UserRequestActivity"/>
+        <activity android:name="xyz.fegati.mybike.UserRequestDetailsActivity"/>
+        <activity android:name="xyz.fegati.mybike.UserEditProfileActivity"/>
+        <activity android:name="xyz.fegati.mybike.DriverTrackActivity"/>
+        <receiver android:name="xyz.fegati.mybike.UpdateReceiver"/>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDjku2m7yyvuLbueajrIrEDwgrllcJ_iDA"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+    </application>
+</manifest>

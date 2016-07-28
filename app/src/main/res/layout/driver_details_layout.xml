@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="18.0sp" android:textStyle="normal" android:textColor="#ff947e00" android:id="@id/title" android:layout_width="0.0dip" android:layout_height="30.0dip" android:layout_margin="10.0dip" android:text="Request for a ride" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+    </LinearLayout>
+    <View android:id="@id/titleDivider" android:background="#ff947e00" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:id="@id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vehicle Info : " android:fontFamily="sans-serif-light" />
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverVehicleInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Car" android:fontFamily="sans-serif-light" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:id="@id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rate per km : " android:fontFamily="sans-serif-light" />
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverCostPerkm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rs. 100 " android:fontFamily="sans-serif-light" />
+        </LinearLayout>
+        <LinearLayout android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:id="@id/textView5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Phone : " />
+            <TextView android:textSize="18.0sp" android:id="@id/driverPhone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="123" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:id="@id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Current Location : " android:fontFamily="sans-serif-light" />
+            <TextView android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverCurrentLocation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:fontFamily="sans-serif-light" />
+        </LinearLayout>
+        <RadioGroup android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <RadioButton android:textSize="16.0sp" android:textStyle="normal" android:id="@id/mygpsloc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="My GPS location for pickup" android:fontFamily="sans-serif-light" />
+            <RadioButton android:textSize="16.0sp" android:textStyle="normal" android:id="@id/myenterloc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Enter pickup location" android:fontFamily="sans-serif-light" />
+        </RadioGroup>
+        <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/mypickloc" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="Pickup address" android:ems="10" android:inputType="text" android:fontFamily="sans-serif-light">
+            <requestFocus />
+        </EditText>
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverDropLocBtn" android:background="@drawable/my_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="Enter drop location" android:fontFamily="sans-serif-light" />
+        <EditText android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverDropLoc" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="Drop Location" android:ems="10" android:inputType="text" android:fontFamily="sans-serif-light">
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+    <LinearLayout android:id="@id/driverSubmitLinLay" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverCancelBtn" android:background="@drawable/my_button" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_margin="1.0dip" android:text="Cancel" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+        <Button android:textSize="16.0sp" android:textStyle="normal" android:id="@id/driverReqBtn" android:background="@drawable/my_button" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_margin="1.0dip" android:text="Request" android:layout_weight="1.0" android:fontFamily="sans-serif-light" />
+    </LinearLayout>
+</LinearLayout>
