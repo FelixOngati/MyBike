@@ -19,8 +19,8 @@ public class Util
 {
   public static boolean isConnectingToInternet(Context paramContext)
   {
-    ConnectivityManager localConnectivityManager = (ConnectivityManager)paramContext.getSystemService("connectivity");
-    NetworkInfo[] arrayOfNetworkInfo;
+    ConnectivityManager localConnectivityManager = (ConnectivityManager)paramContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo[] arrayOfNetworkInfo = new NetworkInfo[0];
     if (localConnectivityManager != null)
     {
       arrayOfNetworkInfo = localConnectivityManager.getAllNetworkInfo();
@@ -37,7 +37,8 @@ public class Util
 
   public static boolean isGPSOn(Context paramContext)
   {
-    return Boolean.valueOf(((LocationManager)paramContext.getSystemService("location")).isProviderEnabled("gps")).booleanValue();
+    return true;
+//    return Boolean.valueOf(((LocationManager)paramContext.getSystemService(Context.NOTIFICATION_SERVICE)).isProviderEnabled("gps")).booleanValue();
   }
 
   public static void showNoInternetDialog(Context paramContext)
@@ -51,7 +52,7 @@ public class Util
       public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt)
       {
         Intent localIntent = new Intent("android.settings.WIRELESS_SETTINGS");
-        Util.this.startActivity(localIntent);
+//        Util.this.startActivity(localIntent);
       }
     });
     localBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
@@ -66,7 +67,7 @@ public class Util
 
   public static void showToast(Context paramContext, String paramString)
   {
-    Toast.makeText(paramContext, paramString, 0).show();
+    Toast.makeText(paramContext, paramString, Toast.LENGTH_SHORT).show();
   }
 
   public static boolean validEmail(String paramString)

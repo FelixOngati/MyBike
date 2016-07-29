@@ -149,10 +149,6 @@ public class JSONParser
     //   105	119	238	java/lang/Exception
     //   209	235	238	java/lang/Exception
     //   119	132	269	org/json/JSONException
+    return null;
   }
 }
-
-/* Location:           C:\Users\Erick\Desktop\extract\dex2jar-0.0.9.15\classes_dex2jar.jar
- * Qualified Name:     com.nas.cruzer.util.JSONParser
- * JD-Core Version:    0.6.2
- */

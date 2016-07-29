@@ -84,7 +84,7 @@ public class LoginActivity extends Activity
       {
         if (!TextUtils.isEmpty(this.passwordEt.getText().toString()))
         {
-          new Login().execute(new String[] { "client" });
+          new Login(this.emailEt.getText().toString(),this.passwordEt.getText().toString()).execute(new String[] { "client" });
           return;
         }
         Toast.makeText(this, "Please enter your password", Toast.LENGTH_SHORT).show();
@@ -160,7 +160,7 @@ public class LoginActivity extends Activity
       {
         if ((!TextUtils.isEmpty(LoginActivity.this.drloginEmail.getText().toString())) && (!TextUtils.isEmpty(LoginActivity.this.drloginPassword.getText().toString())))
         {
-          new LoginActivity.Login().execute(new String[] { "driver" });
+          new LoginActivity.Login(LoginActivity.this.drloginEmail.getText().toString(),LoginActivity.this.drloginPassword.getText().toString()).execute(new String[] { "driver" });
           return;
         }
         Toast.makeText(LoginActivity.this.con, "Please enter value", Toast.LENGTH_SHORT).show();
@@ -198,7 +198,7 @@ public class LoginActivity extends Activity
       {
         if (!TextUtils.isEmpty(LoginActivity.this.lostPassEmail.getText().toString()))
         {
-          new LoginActivity.RecoverPassword().execute(new String[0]);
+          new LoginActivity.RecoverPassword(LoginActivity.this.lostPassEmail.getText().toString()).execute(new String[0]);
           return;
         }
         LoginActivity.this.lostPassResltText.setText("Please enter your email");
@@ -229,7 +229,8 @@ public class LoginActivity extends Activity
           if ((!TextUtils.isEmpty(LoginActivity.this.registrationEmail.getText().toString())) && (Util.validEmail(LoginActivity.this.registrationEmail.getText().toString())))
             if (!TextUtils.isEmpty(LoginActivity.this.registrationPhone.getText().toString()))
               if ((LoginActivity.this.registrationPassword.getText().toString().equals(LoginActivity.this.registrationConfirmPassword.getText().toString())) && (!TextUtils.isEmpty(LoginActivity.this.registrationPassword.getText().toString())))
-                new LoginActivity.Registration().execute(new String[0]);
+                new LoginActivity.Registration(LoginActivity.this.registrationName.getText().toString(),LoginActivity.this.registrationEmail.getText().toString(),
+                        LoginActivity.this.registrationPassword.getText().toString(),LoginActivity.this.registrationPhone.getText().toString()).execute(new String[0]);
         while (true)
         {
           LoginActivity.this.registrationResult.setText(str);
@@ -264,16 +265,18 @@ public class LoginActivity extends Activity
     String s = "";
     int success = -1;
 
-    Login()
+    Login(String email, String password)
     {
+      this.email = email;
+      this.password = password;
     }
 
     protected String doInBackground(String[] paramArrayOfString)
     {
       if ((paramArrayOfString != null) && (paramArrayOfString[0].equals("driver")))
       {
-        this.email = LoginActivity.this.drloginEmail.getText().toString();
-        this.password = LoginActivity.this.drloginPassword.getText().toString();
+//        this.email = LoginActivity.this.drloginEmail.getText().toString();
+//        this.password = LoginActivity.this.drloginPassword.getText().toString();
         this.driver = true;
       }
       while (true)
@@ -299,11 +302,10 @@ public class LoginActivity extends Activity
             UserInfo.setPhonenumber(localJSONObject2.getString("number"));
             UserInfo.setId(localJSONObject2.getString("id"));
           }
-          return null;
-          this.email = LoginActivity.this.emailEt.getText().toString();
-          this.password = LoginActivity.this.passwordEt.getText().toString();
-          continue;
+//          this.email = LoginActivity.this.emailEt.getText().toString();
+//          this.password = LoginActivity.this.passwordEt.getText().toString();
           localArrayList.add(new BasicNameValuePair("category", "client"));
+          return null;
         }
         catch (JSONException localJSONException)
         {
@@ -365,18 +367,20 @@ public class LoginActivity extends Activity
   {
     int error = 0;
     String message = "";
+    String email;
     ProgressDialog pDialog;
     int success = 0;
     String toastText = "Internet is not available";
 
-    RecoverPassword()
+   public RecoverPassword(String email)
     {
+      this.email = email;
     }
 
     protected String doInBackground(String[] paramArrayOfString)
     {
       ArrayList localArrayList = new ArrayList();
-      localArrayList.add(new BasicNameValuePair("email", LoginActivity.this.lostPassEmail.getText().toString()));
+      localArrayList.add(new BasicNameValuePair("email", email));
       try
       {
         JSONObject localJSONObject = LoginActivity.this.jparser.makeHttpRequest("http://itechbd.tk/texibooking/sendmail.php", "POST", localArrayList);
@@ -433,27 +437,28 @@ public class LoginActivity extends Activity
     String regiresult = "";
     int success = 0;
     String toastText = "Internet Problem";
+    String name, email, password, phone;
 
-    Registration()
+    Registration(String name, String email, String password, String phone)
     {
+      this.name = name;
+      this.email = email;
+      this.password = password;
+      this.phone = phone;
     }
 
     protected String doInBackground(String[] paramArrayOfString)
     {
-      String str1 = LoginActivity.this.registrationName.getText().toString();
-      String str2 = LoginActivity.this.registrationEmail.getText().toString();
-      String str3 = LoginActivity.this.registrationPassword.getText().toString();
-      String str4 = LoginActivity.this.registrationPhone.getText().toString();
       ArrayList localArrayList = new ArrayList();
-      localArrayList.add(new BasicNameValuePair("name", str1));
-      localArrayList.add(new BasicNameValuePair("email", str2));
-      localArrayList.add(new BasicNameValuePair("password", str3));
-      localArrayList.add(new BasicNameValuePair("number", str4));
+      localArrayList.add(new BasicNameValuePair("name", name));
+      localArrayList.add(new BasicNameValuePair("email", email));
+      localArrayList.add(new BasicNameValuePair("password", password));
+      localArrayList.add(new BasicNameValuePair("number", phone));
       localArrayList.add(new BasicNameValuePair("category", "client"));
-      UserInfo.setEmail(str2);
-      UserInfo.setName(str1);
-      UserInfo.setPassword(str3);
-      UserInfo.setPhonenumber(str4);
+      UserInfo.setEmail(email);
+      UserInfo.setName(name);
+      UserInfo.setPassword(password);
+      UserInfo.setPhonenumber(phone);
       try
       {
         JSONObject localJSONObject = LoginActivity.this.jparser.makeHttpRequest("http://futureline.lk/taxi/app/registration.php", "POST", localArrayList);
@@ -503,13 +508,13 @@ public class LoginActivity extends Activity
         if (this.success == 0)
         {
           LoginActivity.this.registrationResult.setText(this.regiresult);
-          LoginActivity.this.registrationResult.setVisibility(0);
+          LoginActivity.this.registrationResult.setVisibility(View.VISIBLE);
           return;
         }
       }
       while (this.success != 1);
       LoginActivity.this.startActivity(new Intent(LoginActivity.this.con, DriverPositionActivity.class));
-      Toast.makeText(LoginActivity.this.con, this.toastText, 0).show();
+      Toast.makeText(LoginActivity.this.con, this.toastText, Toast.LENGTH_SHORT).show();
       LoginActivity.this.finish();
     }
 

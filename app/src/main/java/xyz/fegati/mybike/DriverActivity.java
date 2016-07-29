@@ -29,10 +29,12 @@ import android.widget.ToggleButton;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.RunnableFuture;
 
 import xyz.fegati.mybike.util.GPSTracker;
 import xyz.fegati.mybike.util.JSONParser;
@@ -63,10 +65,10 @@ public class DriverActivity extends Activity
     Intent localIntent = new Intent(this.con, DriverActivity.class);
     localBuilder.setContentTitle("New taxi request!");
     localBuilder.setContentText("Click to see the customer information ");
-    localBuilder.setSmallIcon(17301543);
+    localBuilder.setSmallIcon(R.drawable.cast_ic_notification_small_icon);
     localBuilder.setTicker("New notification from Cruzer");
     localBuilder.setSound(RingtoneManager.getDefaultUri(2));
-    PendingIntent localPendingIntent = PendingIntent.getActivity(this.con, 100, localIntent, 134217728);
+    PendingIntent localPendingIntent = PendingIntent.getActivity(this.con, 100, localIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     localBuilder.setAutoCancel(true);
     localBuilder.setContentIntent(localPendingIntent);
     ((NotificationManager)this.con.getSystemService(Context.NOTIFICATION_SERVICE)).notify(110, localBuilder.build());
@@ -76,7 +78,7 @@ public class DriverActivity extends Activity
   {
     super.onActivityResult(paramInt1, paramInt2, paramIntent);
     if ((paramInt1 == 101) && (paramInt2 == -1))
-      new GetRequestedRides(DriverActivity.this).execute(new String[0]);
+      new GetRequestedRides().execute(new String[0]);
   }
 
   protected void onCreate(Bundle paramBundle)
@@ -84,28 +86,28 @@ public class DriverActivity extends Activity
     super.onCreate(paramBundle);
     this.gps = new GPSTracker(this);
     this.con = this;
-    setContentView(2130903040);
-    this.rideList = ((ListView)findViewById(2131165208));
-    this.modeBtn = ((ToggleButton)findViewById(2131165205));
-    this.categoryFilter = ((Spinner)findViewById(2131165207));
-    this.categoryFilter.setAdapter(new ArrayAdapter(this, 17367050, this.dropdownItems));
+    setContentView(R.layout.driver_activity_layout);
+    this.rideList = ((ListView)findViewById(R.id.driverRequestedRides));
+    this.modeBtn = ((ToggleButton)findViewById(R.id.modeToggleBtn));
+    this.categoryFilter = ((Spinner)findViewById(R.id.driverRequestedRidesListFilter));
+    this.categoryFilter.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_item, this.dropdownItems));
     this.modeBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
     {
       public void onCheckedChanged(CompoundButton paramAnonymousCompoundButton, boolean paramAnonymousBoolean)
       {
         if (paramAnonymousBoolean)
         {
-          new DriverActivity.SendModeData(DriverActivity.this).execute(new String[] { "1" });
+          new DriverActivity.SendModeData().execute(new String[] { "1" });
           return;
         }
-        new DriverActivity.SendModeData(DriverActivity.this).execute(new String[] { "0" });
+        new DriverActivity.SendModeData().execute(new String[] { "0" });
       }
     });
     this.categoryFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
     {
       public void onItemSelected(AdapterView<?> paramAnonymousAdapterView, View paramAnonymousView, int paramAnonymousInt, long paramAnonymousLong)
       {
-        new DriverActivity.GetRequestedRides(DriverActivity.this).execute(new String[0]);
+        new DriverActivity.GetRequestedRides().execute(new String[0]);
       }
 
       public void onNothingSelected(AdapterView<?> paramAnonymousAdapterView)
@@ -114,7 +116,7 @@ public class DriverActivity extends Activity
     });
     this.sh = getSharedPreferences("CRUZER_PREF", 0);
     this.notAccReq = this.sh.getInt("notaccreq", 0);
-    new GetRequestedRides(DriverActivity.this).execute(new String[0]);
+    new GetRequestedRides().execute(new String[0]);
     new SendLocation().execute(new String[0]);
     this.rideList.setOnItemClickListener(new AdapterView.OnItemClickListener()
     {
@@ -131,7 +133,7 @@ public class DriverActivity extends Activity
 
   public boolean onCreateOptionsMenu(Menu paramMenu)
   {
-    getMenuInflater().inflate(2131361792, paramMenu);
+    getMenuInflater().inflate(R.menu.driver_menu, paramMenu);
     return super.onCreateOptionsMenu(paramMenu);
   }
 
@@ -150,14 +152,14 @@ public class DriverActivity extends Activity
     switch (paramMenuItem.getItemId())
     {
     default:
-    case 2131165276:
-    case 2131165277:
+    case R.id.driverRefreshMenu:
+    case R.id.driverLogoutMenu:
     }
     while (true)
     {
-      return super.onOptionsItemSelected(paramMenuItem);
-      new GetRequestedRides(DriverActivity.this).execute(new String[0]);
-      continue;
+//      return super.onOptionsItemSelected(paramMenuItem);
+      new GetRequestedRides().execute(new String[0]);
+//      continue;
       SharedPreferences.Editor localEditor = this.sh.edit();
       localEditor.putString("loginemail", null);
       localEditor.putString("loginpass", null);
@@ -179,11 +181,11 @@ public class DriverActivity extends Activity
         {
           DriverActivity.this.gps = new GPSTracker(DriverActivity.this.con);
           new DriverActivity.SendLocation(DriverActivity.this).execute(new String[0]);
-          new DriverActivity.GetRequestedRides(DriverActivity.this).execute(new String[0]);
-          Toast.makeText(DriverActivity.this.con, DriverActivity.this.gps.getLatitude() + " " + DriverActivity.this.gps.getLongitude(), 0).show();
+          new DriverActivity.GetRequestedRides().execute(new String[0]);
+          Toast.makeText(DriverActivity.this.con, DriverActivity.this.gps.getLatitude() + " " + DriverActivity.this.gps.getLongitude(), Toast.LENGTH_SHORT).show();
           return;
         }
-        Toast.makeText(DriverActivity.this.con, "Internet is not active", 0).show();
+        Toast.makeText(DriverActivity.this.con, "Internet is not active", Toast.LENGTH_SHORT).show();
       }
     };
     this.handler.postDelayed(this.run, 30000L);
@@ -196,7 +198,7 @@ public class DriverActivity extends Activity
     String s = "";
     int success = -1;
 
-    GetRequestedRides(DriverActivity driverActivity)
+    GetRequestedRides()
     {
     }
 
@@ -206,7 +208,7 @@ public class DriverActivity extends Activity
       localArrayList.add(new BasicNameValuePair("user_email", UserInfo.getEmail()));
       while (true)
       {
-        int i;
+        final int[] i = new int[1];
         try
         {
           JSONObject localJSONObject1 = DriverActivity.this.jparser.makeHttpRequest("http://futureline.lk/taxi/app/requested-rides-list.php", "POST", localArrayList);
@@ -216,11 +218,12 @@ public class DriverActivity extends Activity
           {
             DriverActivity.this.rides = new ArrayList();
             JSONArray localJSONArray = localJSONObject1.getJSONArray("ridelist");
-            i = 0;
-            if (i < localJSONArray.length())
+            JSONObject localJSONObject2  = new JSONObject();
+            final HashMap localHashMap = new HashMap();
+            i[0] = 0;
+            if (i[0] < localJSONArray.length())
             {
-              localJSONObject2 = localJSONArray.getJSONObject(i);
-              localHashMap = new HashMap();
+              localJSONObject2 = localJSONArray.getJSONObject(i[0]);
               localHashMap.put("id", localJSONObject2.getString("id"));
               localHashMap.put("driver_id", localJSONObject2.getString("driver_id"));
               localHashMap.put("sender_id", localJSONObject2.getString("sender_id"));
@@ -232,40 +235,74 @@ public class DriverActivity extends Activity
               localHashMap.put("longitude", localJSONObject2.getString("longitude"));
               localHashMap.put("timedate", localJSONObject2.getString("timedate"));
               localHashMap.put("accept", localJSONObject2.getString("accept"));
-              if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 0)
-              {
-                DriverActivity.this.rides.add(localHashMap);
-              }
-              else if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 1)
-              {
-                if (!localJSONObject2.getString("accept").equals("0"))
-                  break label517;
-                DriverActivity.this.rides.add(localHashMap);
-              }
+
+              final JSONObject finalLocalJSONObject = localJSONObject2;
+              runOnUiThread(new Runnable() {
+                @Override
+                public void run(){
+                  if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 0)
+                  {
+                    DriverActivity.this.rides.add(localHashMap);
+                  }
+                  else if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 1)
+                  {
+                    try {
+                      if (!finalLocalJSONObject.getString("accept").equals("0")) {
+                        i[0]++;
+                      }
+                    } catch (JSONException e) {
+                      e.printStackTrace();
+                    }
+                    DriverActivity.this.rides.add(localHashMap);
+                  }
+                }
+              });
+
             }
           }
         }
         catch (Exception localException)
         {
-          JSONObject localJSONObject2;
-          HashMap localHashMap;
+          JSONObject localJSONObject2 = null;
+          HashMap localHashMap = null;
           this.error = 1;
-          break label515;
-          if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 2)
-          {
-            if (localJSONObject2.getString("accept").equals("1"))
-              DriverActivity.this.rides.add(localHashMap);
-          }
-          else if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 3)
-          {
-            if (localJSONObject2.getString("accept").equals("2"))
-              DriverActivity.this.rides.add(localHashMap);
-          }
-          else if ((DriverActivity.this.categoryFilter.getSelectedItemPosition() == 4) && (localJSONObject2.getString("accept").equals("3")))
-            DriverActivity.this.rides.add(localHashMap);
+         // break;
+          final JSONObject finalLocalJSONObject = localJSONObject2;
+          final HashMap finalLocalHashMap = localHashMap;
+          runOnUiThread(
+                  new Runnable() {
+                    @Override
+                    public void run() {
+                      if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 2)
+                      {
+                        try {
+                          if (finalLocalJSONObject.getString("accept").equals("1"))
+                            DriverActivity.this.rides.add(finalLocalHashMap);
+                        } catch (JSONException e) {
+                          e.printStackTrace();
+                        }
+                      }
+                      else if (DriverActivity.this.categoryFilter.getSelectedItemPosition() == 3)
+                      {
+                        try {
+                          if (finalLocalJSONObject.getString("accept").equals("2"))
+                            DriverActivity.this.rides.add(finalLocalHashMap);
+                        } catch (JSONException e) {
+                          e.printStackTrace();
+                        }
+                      }
+                      else try {
+                          if ((DriverActivity.this.categoryFilter.getSelectedItemPosition() == 4) && (finalLocalJSONObject.getString("accept").equals("3")))
+                            DriverActivity.this.rides.add(finalLocalHashMap);
+                        } catch (JSONException e) {
+                          e.printStackTrace();
+                        }
+                    }
+                  }
+          );
+
         }
         label515: return null;
-        label517: i++;
       }
     }
 
@@ -275,12 +312,12 @@ public class DriverActivity extends Activity
       this.pDialog.dismiss();
       if (this.error == 1)
         if (Util.isConnectingToInternet(DriverActivity.this.con))
-          Toast.makeText(DriverActivity.this.con, "Server is down, Please try again later", 0).show();
+          Toast.makeText(DriverActivity.this.con, "Server is down, Please try again later", Toast.LENGTH_SHORT).show();
       do
       {
-        return;
+//        return;
         Util.showNoInternetDialog(DriverActivity.this.con);
-        return;
+//        return;
         DriverActivity.this.notAccReq = DriverActivity.this.sh.getInt("notaccreq", 0);
         if (this.success != 1)
           break;
@@ -303,7 +340,7 @@ public class DriverActivity extends Activity
         if (((String)((HashMap)DriverActivity.this.rides.get(j)).get("accept")).equals("0"))
           i++;
       }
-      Toast.makeText(DriverActivity.this, this.s, 0).show();
+//      Toast.makeText(DriverActivity.this, this.s, Toast.LENGTH_SHORT).show();
     }
 
     protected void onPreExecute()
@@ -323,6 +360,9 @@ public class DriverActivity extends Activity
     {
     }
 
+    public ListAdapter(DriverActivity driverActivity) {
+    }
+
     public int getCount()
     {
       return DriverActivity.this.rides.size();
@@ -340,15 +380,15 @@ public class DriverActivity extends Activity
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup)
     {
-      View localView = DriverActivity.this.getLayoutInflater().inflate(2130903047, paramViewGroup, false);
-      TextView localTextView1 = (TextView)localView.findViewById(2131165252);
-      TextView localTextView2 = (TextView)localView.findViewById(2131165253);
-      TextView localTextView3 = (TextView)localView.findViewById(2131165254);
-      TextView localTextView4 = (TextView)localView.findViewById(2131165255);
-      TextView localTextView5 = (TextView)localView.findViewById(2131165256);
+      View localView = DriverActivity.this.getLayoutInflater().inflate(R.layout.user_request_details_layout, paramViewGroup, false);
+      TextView localTextView1 = (TextView)localView.findViewById(R.id.requestDetailsName);
+      TextView localTextView2 = (TextView)localView.findViewById(R.id.requestDetailsPickup);
+      TextView localTextView3 = (TextView)localView.findViewById(R.id.requestDetailsDrop);
+//      TextView localTextView4 = (TextView)localView.findViewById(2131165255);
+      TextView localTextView5 = (TextView)localView.findViewById(R.id.requestDetailsAccBtn);
       localTextView1.setText("Passenger Name: " + ((String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("name")).trim());
       localTextView2.setText("Pickup Location : " + ((String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("location")).trim());
-      localTextView4.setText("Time : " + (String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("timedate"));
+//      localTextView4.setText("Time : " + (String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("timedate"));
       localTextView3.setText("Drop Location: " + ((String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("droplocation")).trim());
       if (((String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("accept")).equals("0"))
       {
@@ -357,7 +397,7 @@ public class DriverActivity extends Activity
       }
       do
       {
-        return localView;
+//        return localView;
         if (((String)((HashMap)DriverActivity.this.rides.get(paramInt)).get("accept")).equals("1"))
         {
           localTextView5.setText("Accepted");
@@ -395,8 +435,8 @@ public class DriverActivity extends Activity
     {
       ArrayList localArrayList = new ArrayList();
       localArrayList.add(new BasicNameValuePair("email", UserInfo.getEmail()));
-      localArrayList.add(new BasicNameValuePair("latitude", DriverActivity.this.gps.getLatitude()));
-      localArrayList.add(new BasicNameValuePair("longitude", DriverActivity.this.gps.getLongitude()));
+      localArrayList.add(new BasicNameValuePair("latitude", String.valueOf(DriverActivity.this.gps.getLatitude())));
+      localArrayList.add(new BasicNameValuePair("longitude", String.valueOf(DriverActivity.this.gps.getLongitude())));
       try
       {
         JSONObject localJSONObject = DriverActivity.this.jparser.makeHttpRequest("http://futureline.lk/taxi/app/receievelocation.php", "POST", localArrayList);
@@ -417,13 +457,13 @@ public class DriverActivity extends Activity
       this.pDialog.dismiss();
       if (this.error == 1)
         if (Util.isConnectingToInternet(DriverActivity.this.con))
-          Toast.makeText(DriverActivity.this.con, "Server is down, Please try again later", 0).show();
+          Toast.makeText(DriverActivity.this.con, "Server is down, Please try again later", Toast.LENGTH_SHORT).show();
       do
       {
-        return;
+//        return;
         Util.showNoInternetDialog(DriverActivity.this.con);
-        return;
-        Toast.makeText(DriverActivity.this.con, this.s, 1).show();
+//        return;
+        Toast.makeText(DriverActivity.this.con, this.s, Toast.LENGTH_LONG).show();
       }
       while ((this.success == 0) || (this.success != 1));
       DriverActivity.this.scheduleThread();
@@ -478,13 +518,13 @@ public class DriverActivity extends Activity
       {
         if (Util.isConnectingToInternet(DriverActivity.this.con))
         {
-          Toast.makeText(DriverActivity.this.con, "Server is down, Please try again later", 0).show();
+          Toast.makeText(DriverActivity.this.con, "Server is down, Please try again later", Toast.LENGTH_SHORT).show();
           return;
         }
         Util.showNoInternetDialog(DriverActivity.this.con);
         return;
       }
-      Toast.makeText(DriverActivity.this.con, this.s, 1).show();
+      Toast.makeText(DriverActivity.this.con, this.s, Toast.LENGTH_LONG).show();
     }
 
     protected void onPreExecute()
@@ -498,8 +538,3 @@ public class DriverActivity extends Activity
     }
   }
 }
-
-/* Location:           C:\Users\Erick\Desktop\extract\dex2jar-0.0.9.15\classes_dex2jar.jar
- * Qualified Name:     com.nas.cruzer.DriverActivity
- * JD-Core Version:    0.6.2
- */

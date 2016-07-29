@@ -13,13 +13,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.nas.cruzer.util.JSONParser;
-import com.nas.cruzer.util.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
+
+import xyz.fegati.mybike.util.JSONParser;
+import xyz.fegati.mybike.util.Util;
 
 public class UserRequestDetailsActivity extends Activity
   implements View.OnClickListener
@@ -36,11 +37,11 @@ public class UserRequestDetailsActivity extends Activity
 
   private void init()
   {
-    this.nameTv = ((TextView)findViewById(2131165269));
-    this.numberTv = ((TextView)findViewById(2131165270));
-    this.pickupTv = ((TextView)findViewById(2131165271));
-    this.dropTv = ((TextView)findViewById(2131165272));
-    this.trackBtn = ((Button)findViewById(2131165273));
+    this.nameTv = ((TextView)findViewById(R.id.userRequestDetailsName));
+    this.numberTv = ((TextView)findViewById(R.id.userRequestDetailsNumber));
+    this.pickupTv = ((TextView)findViewById(R.id.userRequestDetailsPickupLocation));
+    this.dropTv = ((TextView)findViewById(R.id.userRequestDetailsDropLocation));
+    this.trackBtn = ((Button)findViewById(R.id.driverTrackBtn));
     this.trackBtn.setOnClickListener(this);
   }
 
@@ -65,7 +66,7 @@ public class UserRequestDetailsActivity extends Activity
   protected void onCreate(Bundle paramBundle)
   {
     super.onCreate(paramBundle);
-    setContentView(2130903050);
+    setContentView(R.layout.user_request_details_layout);
     this.con = this;
     init();
     this.nameTv.setText("Driver name : " + ((String)request.get("driver_name")).trim());
@@ -125,13 +126,13 @@ public class UserRequestDetailsActivity extends Activity
       this.pDialog.dismiss();
       if (this.error == 1)
         if (Util.isConnectingToInternet(UserRequestDetailsActivity.this.con))
-          Toast.makeText(UserRequestDetailsActivity.this.con, "Server is down, Please try again later", 0).show();
+          Toast.makeText(UserRequestDetailsActivity.this.con, "Server is down, Please try again later", Toast.LENGTH_SHORT).show();
       do
       {
-        return;
+
         Util.showNoInternetDialog(UserRequestDetailsActivity.this.con);
-        return;
-        Toast.makeText(UserRequestDetailsActivity.this.con, this.s, 1).show();
+
+        Toast.makeText(UserRequestDetailsActivity.this.con, this.s, Toast.LENGTH_LONG).show();
       }
       while ((this.success == 0) || (this.success != 1));
       UserRequestDetailsActivity.this.setResult(-1);

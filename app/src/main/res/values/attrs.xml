@@ -3,7 +3,7 @@
     <attr name="adSize" format="string" />
     <attr name="adSizes" format="string" />
     <attr name="adUnitId" format="string" />
-    <attr name="mapType">
+    <attr name="appmapType">
         <enum name="none" value="0" />
         <enum name="normal" value="1" />
         <enum name="satellite" value="2" />
@@ -23,34 +23,34 @@
     <attr name="uiZoomGestures" format="boolean" />
     <attr name="useViewLifecycle" format="boolean" />
     <attr name="zOrderOnTop" format="boolean" />
-    <attr name="theme">
+    <attr name="apptheme">
         <enum name="holo_dark" value="0" />
         <enum name="holo_light" value="1" />
     </attr>
-    <attr name="environment">
+    <attr name="appenvironment">
         <enum name="production" value="1" />
         <enum name="sandbox" value="0" />
         <enum name="strict_sandbox" value="2" />
     </attr>
-    <attr name="fragmentStyle" format="reference" />
-    <attr name="fragmentMode">
+    <attr name="appfragmentStyle" format="reference" />
+    <attr name="appfragmentMode">
         <enum name="buyButton" value="1" />
         <enum name="selectionDetails" value="2" />
     </attr>
-    <attr name="buyButtonHeight" format="dimension">
+    <attr name="appbuyButtonHeight" format="dimension">
         <enum name="match_parent" value="-1" />
         <enum name="wrap_content" value="-2" />
     </attr>
-    <attr name="buyButtonWidth" format="dimension">
+    <attr name="appbuyButtonWidth" format="dimension">
         <enum name="match_parent" value="-1" />
         <enum name="wrap_content" value="-2" />
     </attr>
-    <attr name="buyButtonText">
+    <attr name="appbuyButtonText">
         <enum name="buy_with_google" value="1" />
         <enum name="buy_now" value="2" />
         <enum name="book_now" value="3" />
     </attr>
-    <attr name="buyButtonAppearance">
+    <attr name="appbuyButtonAppearance">
         <enum name="classic" value="1" />
         <enum name="grayscale" value="2" />
         <enum name="monochrome" value="3" />
@@ -61,7 +61,7 @@
     <attr name="maskedWalletDetailsButtonTextAppearance" format="reference" />
     <attr name="maskedWalletDetailsButtonBackground" format="reference|color" />
     <attr name="maskedWalletDetailsLogoTextColor" format="color" />
-    <attr name="maskedWalletDetailsLogoImageType">
+    <attr name="appmaskedWalletDetailsLogoImageType">
         <enum name="classic" value="1" />
         <enum name="monochrome" value="2" />
     </attr>

@@ -14,14 +14,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.nas.cruzer.util.JSONParser;
-import com.nas.cruzer.util.UserInfo;
-import com.nas.cruzer.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import xyz.fegati.mybike.util.JSONParser;
+import xyz.fegati.mybike.util.Util;
 
 public class UserEditProfileActivity extends Activity
   implements View.OnClickListener
@@ -35,16 +35,16 @@ public class UserEditProfileActivity extends Activity
   EditText passwordEt;
   Button saveBtn;
 
-  private void init()
-  {
-    this.nameEt = ((EditText)findViewById(2131165264));
-    this.numberEt = ((EditText)findViewById(2131165265));
-    this.passwordEt = ((EditText)findViewById(2131165266));
-    this.cancelBtn = ((Button)findViewById(2131165267));
-    this.saveBtn = ((Button)findViewById(2131165268));
-    this.cancelBtn.setOnClickListener(this);
-    this.saveBtn.setOnClickListener(this);
-  }
+//  private void init()
+//  {
+//    this.nameEt = ((EditText)findViewById(2131165264));
+//    this.numberEt = ((EditText)findViewById(2131165265));
+//    this.passwordEt = ((EditText)findViewById(2131165266));
+//    this.cancelBtn = ((Button)findViewById(2131165267));
+//    this.saveBtn = ((Button)findViewById(2131165268));
+//    this.cancelBtn.setOnClickListener(this);
+//    this.saveBtn.setOnClickListener(this);
+//  }
 
   public void onClick(View paramView)
   {
@@ -83,17 +83,17 @@ public class UserEditProfileActivity extends Activity
   protected void onCreate(Bundle paramBundle)
   {
     super.onCreate(paramBundle);
-    setContentView(2130903049);
-    this.con = this;
-    init();
-    if (UserInfo.getName() != null)
-      this.nameEt.setText(UserInfo.getName());
-    if (UserInfo.getPhonenumber() != null)
-      this.numberEt.setText(UserInfo.getPhonenumber());
-    if (UserInfo.getPassword() != null)
-      this.passwordEt.setText(UserInfo.getPassword());
-    getActionBar().setHomeButtonEnabled(true);
-    getActionBar().setDisplayHomeAsUpEnabled(true);
+//    setContentView(2130903049);
+//    this.con = this;
+//    init();
+//    if (UserInfo.getName() != null)
+//      this.nameEt.setText(UserInfo.getName());
+//    if (UserInfo.getPhonenumber() != null)
+//      this.numberEt.setText(UserInfo.getPhonenumber());
+//    if (UserInfo.getPassword() != null)
+//      this.passwordEt.setText(UserInfo.getPassword());
+//    getActionBar().setHomeButtonEnabled(true);
+//    getActionBar().setDisplayHomeAsUpEnabled(true);
   }
 
   public boolean onOptionsItemSelected(MenuItem paramMenuItem)
@@ -121,38 +121,39 @@ public class UserEditProfileActivity extends Activity
 
     protected String doInBackground(String[] paramArrayOfString)
     {
-      String str1 = UserInfo.getEmail();
-      String str2 = UserEditProfileActivity.this.passwordEt.getText().toString();
-      String str3 = UserEditProfileActivity.this.nameEt.getText().toString();
-      String str4 = UserEditProfileActivity.this.numberEt.getText().toString();
-      ArrayList localArrayList = new ArrayList();
-      localArrayList.add(new BasicNameValuePair("email", str1));
-      localArrayList.add(new BasicNameValuePair("name", str3));
-      localArrayList.add(new BasicNameValuePair("password", str2));
-      localArrayList.add(new BasicNameValuePair("number", str4));
-      try
-      {
-        JSONObject localJSONObject = UserEditProfileActivity.this.jparser.makeHttpRequest("http://futureline.lk/taxi/app/user-edit-profile.php", "POST", localArrayList);
-        this.success = localJSONObject.getInt("success");
-        this.s = localJSONObject.getString("message");
-        if (this.success == 1)
-        {
-          UserInfo.setName(str3);
-          UserInfo.setPhonenumber(str4);
-          UserInfo.setPassword(str2);
-        }
-        return null;
-      }
-      catch (JSONException localJSONException)
-      {
-        while (true)
-          this.error = 1;
-      }
-      catch (Exception localException)
-      {
-        while (true)
-          this.error = 1;
-      }
+//      String str1 = UserInfo.getEmail();
+//      String str2 = UserEditProfileActivity.this.passwordEt.getText().toString();
+//      String str3 = UserEditProfileActivity.this.nameEt.getText().toString();
+//      String str4 = UserEditProfileActivity.this.numberEt.getText().toString();
+//      ArrayList localArrayList = new ArrayList();
+//      localArrayList.add(new BasicNameValuePair("email", str1));
+//      localArrayList.add(new BasicNameValuePair("name", str3));
+//      localArrayList.add(new BasicNameValuePair("password", str2));
+//      localArrayList.add(new BasicNameValuePair("number", str4));
+//      try
+//      {
+//        JSONObject localJSONObject = UserEditProfileActivity.this.jparser.makeHttpRequest("http://futureline.lk/taxi/app/user-edit-profile.php", "POST", localArrayList);
+//        this.success = localJSONObject.getInt("success");
+//        this.s = localJSONObject.getString("message");
+//        if (this.success == 1)
+//        {
+//          UserInfo.setName(str3);
+//          UserInfo.setPhonenumber(str4);
+//          UserInfo.setPassword(str2);
+//        }
+//        return null;
+//      }
+//      catch (JSONException localJSONException)
+//      {
+//        while (true)
+//          this.error = 1;
+//      }
+//      catch (Exception localException)
+//      {
+//        while (true)
+//          this.error = 1;
+//      }
+      return null;
     }
 
     protected void onPostExecute(String paramString)
@@ -163,13 +164,13 @@ public class UserEditProfileActivity extends Activity
       {
         if (Util.isConnectingToInternet(UserEditProfileActivity.this.con))
         {
-          Toast.makeText(UserEditProfileActivity.this.con, "Server is down, Please try again later", 0).show();
+          Toast.makeText(UserEditProfileActivity.this.con, "Server is down, Please try again later", Toast.LENGTH_SHORT).show();
           return;
         }
         Util.showNoInternetDialog(UserEditProfileActivity.this.con);
         return;
       }
-      Toast.makeText(UserEditProfileActivity.this.con, this.s, 0).show();
+      Toast.makeText(UserEditProfileActivity.this.con, this.s, Toast.LENGTH_SHORT).show();
     }
 
     protected void onPreExecute()

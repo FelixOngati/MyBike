@@ -71,50 +71,51 @@ public class GPSTracker extends Service
 
   public Location getLocation()
   {
-    try
-    {
-      this.locationManager = ((LocationManager)this.mContext.getSystemService("location"));
-      this.isGPSEnabled = this.locationManager.isProviderEnabled("gps");
-      this.isNetworkEnabled = this.locationManager.isProviderEnabled("network");
-      if ((this.isGPSEnabled) || (this.isNetworkEnabled))
-      {
-        this.canGetLocation = true;
-        if (this.isNetworkEnabled)
-        {
-          this.locationManager.requestLocationUpdates("network", 60000L, 10.0F, this);
-          Log.d("Network", "Network");
-          if (this.locationManager != null)
-          {
-            this.location = this.locationManager.getLastKnownLocation("network");
-            if (this.location != null)
-            {
-              this.latitude = this.location.getLatitude();
-              this.longitude = this.location.getLongitude();
-            }
-          }
-        }
-        if ((this.isGPSEnabled) && (this.location == null))
-        {
-          this.locationManager.requestLocationUpdates("gps", 60000L, 10.0F, this);
-          Log.d("GPS Enabled", "GPS Enabled");
-          if (this.locationManager != null)
-          {
-            this.location = this.locationManager.getLastKnownLocation("gps");
-            if (this.location != null)
-            {
-              this.latitude = this.location.getLatitude();
-              this.longitude = this.location.getLongitude();
-            }
-          }
-        }
-      }
-      return this.location;
-    }
-    catch (Exception localException)
-    {
-      while (true)
-        localException.printStackTrace();
-    }
+//    try
+//    {
+//      this.locationManager = (LocationManager) this.mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+//      this.isGPSEnabled = this.locationManager.isProviderEnabled("gps");
+//      this.isNetworkEnabled = this.locationManager.isProviderEnabled("network");
+//      if ((this.isGPSEnabled) || (this.isNetworkEnabled))
+//      {
+//        this.canGetLocation = true;
+//        if (this.isNetworkEnabled)
+//        {
+//          this.locationManager.requestLocationUpdates("network", 60000L, 10.0F, this);
+//          Log.d("Network", "Network");
+//          if (this.locationManager != null)
+//          {
+//            this.location = this.locationManager.getLastKnownLocation("network");
+//            if (this.location != null)
+//            {
+//              this.latitude = this.location.getLatitude();
+//              this.longitude = this.location.getLongitude();
+//            }
+//          }
+//        }
+//        if ((this.isGPSEnabled) && (this.location == null))
+//        {
+//          this.locationManager.requestLocationUpdates("gps", 60000L, 10.0F, this);
+//          Log.d("GPS Enabled", "GPS Enabled");
+//          if (this.locationManager != null)
+//          {
+//            this.location = this.locationManager.getLastKnownLocation("gps");
+//            if (this.location != null)
+//            {
+//              this.latitude = this.location.getLatitude();
+//              this.longitude = this.location.getLongitude();
+//            }
+//          }
+//        }
+//      }
+//      return this.location;
+//    }
+//    catch (Exception localException)
+//    {
+//      while (true)
+//        localException.printStackTrace();
+//    }
+    return null;
   }
 
   public double getLongitude()
@@ -147,8 +148,10 @@ public class GPSTracker extends Service
 
   public void stopUsingGPS()
   {
-    if (this.locationManager != null)
-      this.locationManager.removeUpdates(this);
+    if (this.locationManager != null){
+
+    }
+//      this.locationManager.removeUpdates(this);
   }
 }
 

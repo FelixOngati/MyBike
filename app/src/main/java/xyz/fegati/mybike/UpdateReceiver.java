@@ -10,11 +10,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.RingtoneManager;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.widget.Toast;
-import com.nas.cruzer.util.JSONParser;
-import com.nas.cruzer.util.UserInfo;
-import com.nas.cruzer.util.Util;
+import xyz.fegati.mybike.util.JSONParser;
+import xyz.fegati.mybike.util.UserInfo;
+import xyz.fegati.mybike.util.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +64,7 @@ public class UpdateReceiver extends BroadcastReceiver
       PendingIntent localPendingIntent = PendingIntent.getActivity(UpdateReceiver.this.con, 100, localIntent, 134217728);
       localBuilder.setAutoCancel(true);
       localBuilder.setContentIntent(localPendingIntent);
-      ((NotificationManager)UpdateReceiver.this.con.getSystemService("notification")).notify(110, localBuilder.build());
+      ((NotificationManager)UpdateReceiver.this.con.getSystemService(Context.NOTIFICATION_SERVICE)).notify(110, localBuilder.build());
     }
 
     protected String doInBackground(String[] paramArrayOfString)
@@ -111,7 +113,7 @@ public class UpdateReceiver extends BroadcastReceiver
       {
         if (Util.isConnectingToInternet(UpdateReceiver.this.con))
         {
-          Toast.makeText(UpdateReceiver.this.con, "Server is down, Please try again later", 0).show();
+          Toast.makeText(UpdateReceiver.this.con, "Server is down, Please try again later", Toast.LENGTH_SHORT).show();
           return;
         }
         Util.showNoInternetDialog(UpdateReceiver.this.con);
@@ -135,7 +137,7 @@ public class UpdateReceiver extends BroadcastReceiver
             i++;
         }
       }
-      Toast.makeText(UpdateReceiver.this.con, this.s, 0).show();
+      Toast.makeText(UpdateReceiver.this.con, this.s, Toast.LENGTH_SHORT).show();
     }
 
     protected void onPreExecute()
@@ -148,8 +150,3 @@ public class UpdateReceiver extends BroadcastReceiver
     }
   }
 }
-
-/* Location:           C:\Users\Erick\Desktop\extract\dex2jar-0.0.9.15\classes_dex2jar.jar
- * Qualified Name:     com.nas.cruzer.UpdateReceiver
- * JD-Core Version:    0.6.2
- */
